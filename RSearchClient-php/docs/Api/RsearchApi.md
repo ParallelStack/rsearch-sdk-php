@@ -9,19 +9,21 @@ Method | HTTP request | Description
 [**addIndex**](RsearchApi.md#addIndex) | **POST** /indexes/{index_name} | 
 [**deleteDocument**](RsearchApi.md#deleteDocument) | **DELETE** /indexes/{index_name}/document_types/{doc_type_name}/documents/{doc_id} | 
 [**deleteIndex**](RsearchApi.md#deleteIndex) | **DELETE** /indexes/{index_name} | 
+[**getAdvancedDocTypeSuggestResults**](RsearchApi.md#getAdvancedDocTypeSuggestResults) | **POST** /indexes/{index_name}/document_types/{doc_type_name}/suggest | 
+[**getAdvancedIndexSuggestResults**](RsearchApi.md#getAdvancedIndexSuggestResults) | **POST** /indexes/{index_name}/suggest | 
 [**getAdvancedSearchResults**](RsearchApi.md#getAdvancedSearchResults) | **POST** /indexes/{index_name}/document_types/{doc_type_name}/search | 
 [**getAllDocumentTypes**](RsearchApi.md#getAllDocumentTypes) | **GET** /indexes/{index_name}/document_types | 
 [**getAllDocuments**](RsearchApi.md#getAllDocuments) | **GET** /indexes/{index_name}/document_types/{doc_type_name}/documents | 
 [**getAllIndexes**](RsearchApi.md#getAllIndexes) | **GET** /indexes | 
 [**getBasicSearchResults**](RsearchApi.md#getBasicSearchResults) | **GET** /indexes/{index_name}/search | 
+[**getDocTypeSuggestResults**](RsearchApi.md#getDocTypeSuggestResults) | **GET** /indexes/{index_name}/document_types/{doc_type_name}/suggest | 
 [**getDocument**](RsearchApi.md#getDocument) | **GET** /indexes/{index_name}/document_types/{doc_type_name}/documents/{doc_id} | 
 [**getDocumentType**](RsearchApi.md#getDocumentType) | **GET** /indexes/{index_name}/document_types/{doc_type_name} | 
 [**getIndex**](RsearchApi.md#getIndex) | **GET** /indexes/{index_name} | 
-[**getSuggestResults**](RsearchApi.md#getSuggestResults) | **GET** /indexes/{index_name}/document_types/{doc_type_name}/suggest | 
 
 
 # **addDocument**
-> \RSearch\Client\RSearchModel\InlineResponse2005 addDocument($indexName, $docTypeName, $docId, $documentDetails)
+> \RSearch\Client\RSearchModel\CreateDocumentSuccess addDocument($indexName$docTypeName$docId)
 
 
 
@@ -32,23 +34,17 @@ Creates `doc_id` in `doc_type_name` for `index_name`
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: writeAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
-$docTypeName = "docTypeName_example"; // string | Name of the document_type
-$docId = "docId_example"; // string | Document ID
-$documentDetails = NULL; // object | Details of the document
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$docTypeName = array("docTypeName_example"); // string | Name of the document_type
+$docId = array("docId_example"); // string | Document ID
 
 try {
-    $result = $api_instance->addDocument($indexName, $docTypeName, $docId, $documentDetails);
+    $result = $apiInstance->addDocument($indexName$docTypeName$docId);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->addDocument: ', $e->getMessage(), PHP_EOL;
@@ -60,14 +56,13 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **docTypeName** | **string**| Name of the document_type |
- **docId** | **string**| Document ID |
- **documentDetails** | **object**| Details of the document |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **docTypeName** | [**string**](../Model/.md)| Name of the document_type |
+ **docId** | [**string**](../Model/.md)| Document ID |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2005**](../Model/InlineResponse2005.md)
+[**\RSearch\Client\RSearchModel\CreateDocumentSuccess**](../Model/CreateDocumentSuccess.md)
 
 ### Authorization
 
@@ -76,38 +71,32 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **addDocumentType**
-> \RSearch\Client\RSearchModel\InlineResponse2011 addDocumentType($indexName, $docTypeName, $docTypeDetails)
+> \RSearch\Client\RSearchModel\CreateDocTypeSuccess addDocumentType($indexName$docTypeName)
 
 
 
-Creates specific `document_type` in `index_name` with specified parameters
+Creates specific `document_type` in `index_name` with specified parameters. You should define the parameters correctly as per the getting started guide, else getting the right structure might be an issue.
 
 ### Example
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
-$docTypeName = "docTypeName_example"; // string | Name of the document_type
-$docTypeDetails = NULL; // object | Details of the document_type
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$docTypeName = array("docTypeName_example"); // string | Name of the document_type
 
 try {
-    $result = $api_instance->addDocumentType($indexName, $docTypeName, $docTypeDetails);
+    $result = $apiInstance->addDocumentType($indexName$docTypeName);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->addDocumentType: ', $e->getMessage(), PHP_EOL;
@@ -119,13 +108,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **docTypeName** | **string**| Name of the document_type |
- **docTypeDetails** | **object**| Details of the document_type |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **docTypeName** | [**string**](../Model/.md)| Name of the document_type |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2011**](../Model/InlineResponse2011.md)
+[**\RSearch\Client\RSearchModel\CreateDocTypeSuccess**](../Model/CreateDocTypeSuccess.md)
 
 ### Authorization
 
@@ -134,36 +122,31 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **addIndex**
-> \RSearch\Client\RSearchModel\InlineResponse201 addIndex($indexName)
+> \RSearch\Client\RSearchModel\CreateIndexSuccess addIndex($indexName)
 
 
 
-Creates `a new index`
+Creates `a new index`.
 
 ### Example
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: writeAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
 
 try {
-    $result = $api_instance->addIndex($indexName);
+    $result = $apiInstance->addIndex($indexName);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->addIndex: ', $e->getMessage(), PHP_EOL;
@@ -175,11 +158,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse201**](../Model/InlineResponse201.md)
+[**\RSearch\Client\RSearchModel\CreateIndexSuccess**](../Model/CreateIndexSuccess.md)
 
 ### Authorization
 
@@ -188,12 +171,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteDocument**
-> \RSearch\Client\RSearchModel\InlineResponse2006 deleteDocument($indexName, $docTypeName, $docId)
+> \RSearch\Client\RSearchModel\DeleteDocumentSuccess deleteDocument($indexName$docTypeName$docId)
 
 
 
@@ -204,22 +187,17 @@ Deletes `doc_id` in `doc_type_name` for `index_name`
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: writeAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
-$docTypeName = "docTypeName_example"; // string | Name of the document_type
-$docId = "docId_example"; // string | Document ID
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$docTypeName = array("docTypeName_example"); // string | Name of the document_type
+$docId = array("docId_example"); // string | Document ID
 
 try {
-    $result = $api_instance->deleteDocument($indexName, $docTypeName, $docId);
+    $result = $apiInstance->deleteDocument($indexName$docTypeName$docId);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->deleteDocument: ', $e->getMessage(), PHP_EOL;
@@ -231,13 +209,13 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **docTypeName** | **string**| Name of the document_type |
- **docId** | **string**| Document ID |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **docTypeName** | [**string**](../Model/.md)| Name of the document_type |
+ **docId** | [**string**](../Model/.md)| Document ID |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2006**](../Model/InlineResponse2006.md)
+[**\RSearch\Client\RSearchModel\DeleteDocumentSuccess**](../Model/DeleteDocumentSuccess.md)
 
 ### Authorization
 
@@ -246,12 +224,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteIndex**
-> \RSearch\Client\RSearchModel\InlineResponse202 deleteIndex($indexName)
+> \RSearch\Client\RSearchModel\DeleteIndexSuccess deleteIndex($indexName)
 
 
 
@@ -262,20 +240,15 @@ Deletes `an index` {index_name}
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: writeAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
 
 try {
-    $result = $api_instance->deleteIndex($indexName);
+    $result = $apiInstance->deleteIndex($indexName);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->deleteIndex: ', $e->getMessage(), PHP_EOL;
@@ -287,11 +260,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse202**](../Model/InlineResponse202.md)
+[**\RSearch\Client\RSearchModel\DeleteIndexSuccess**](../Model/DeleteIndexSuccess.md)
 
 ### Authorization
 
@@ -300,38 +273,132 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **getAdvancedSearchResults**
-> \RSearch\Client\RSearchModel\InlineResponse2007 getAdvancedSearchResults($indexName, $docTypeName, $search)
+# **getAdvancedDocTypeSuggestResults**
+> \RSearch\Client\RSearchModel\SuggestSuccess getAdvancedDocTypeSuggestResults($indexName$docTypeName)
 
 
 
-Advanced Search which gets all documents in `index_name` for provided search criteria
+Gets Suggestions from `doc_type_name` in `index_name` limited by the body params. Please ensure you refer the getting started guides, to get the format of the query right.
 
 ### Example
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: writeAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
-$docTypeName = "docTypeName_example"; // string | Name of the Document)type
-$search = NULL; // object | Details of the search query
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$docTypeName = array("docTypeName_example"); // string | Name of the Document_type
 
 try {
-    $result = $api_instance->getAdvancedSearchResults($indexName, $docTypeName, $search);
+    $result = $apiInstance->getAdvancedDocTypeSuggestResults($indexName$docTypeName);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling RsearchApi->getAdvancedDocTypeSuggestResults: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **docTypeName** | [**string**](../Model/.md)| Name of the Document_type |
+
+### Return type
+
+[**\RSearch\Client\RSearchModel\SuggestSuccess**](../Model/SuggestSuccess.md)
+
+### Authorization
+
+[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getAdvancedIndexSuggestResults**
+> \RSearch\Client\RSearchModel\SuggestSuccess getAdvancedIndexSuggestResults($indexName)
+
+
+
+Gets Suggestions in `index_name` limited by the request body fields
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+
+try {
+    $result = $apiInstance->getAdvancedIndexSuggestResults($indexName);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling RsearchApi->getAdvancedIndexSuggestResults: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+
+### Return type
+
+[**\RSearch\Client\RSearchModel\SuggestSuccess**](../Model/SuggestSuccess.md)
+
+### Authorization
+
+[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getAdvancedSearchResults**
+> \RSearch\Client\RSearchModel\SearchSuccess getAdvancedSearchResults($indexName$docTypeName)
+
+
+
+Advanced Search which gets all documents in `index_name` for provided search criteria. Please ensure you refer the getting started guides, to get the format of the query right.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$docTypeName = array("docTypeName_example"); // string | Name of the Document_type
+
+try {
+    $result = $apiInstance->getAdvancedSearchResults($indexName$docTypeName);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->getAdvancedSearchResults: ', $e->getMessage(), PHP_EOL;
@@ -343,13 +410,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **docTypeName** | **string**| Name of the Document)type |
- **search** | **object**| Details of the search query |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **docTypeName** | [**string**](../Model/.md)| Name of the Document_type |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2007**](../Model/InlineResponse2007.md)
+[**\RSearch\Client\RSearchModel\SearchSuccess**](../Model/SearchSuccess.md)
 
 ### Authorization
 
@@ -358,12 +424,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAllDocumentTypes**
-> \RSearch\Client\RSearchModel\InlineResponse2002 getAllDocumentTypes($indexName)
+> \RSearch\Client\RSearchModel\GetDocTypesSuccess getAllDocumentTypes($indexName)
 
 
 
@@ -374,20 +440,15 @@ Gets `All document_types` present in `index_name`
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
 
 try {
-    $result = $api_instance->getAllDocumentTypes($indexName);
+    $result = $apiInstance->getAllDocumentTypes($indexName);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->getAllDocumentTypes: ', $e->getMessage(), PHP_EOL;
@@ -399,11 +460,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2002**](../Model/InlineResponse2002.md)
+[**\RSearch\Client\RSearchModel\GetDocTypesSuccess**](../Model/GetDocTypesSuccess.md)
 
 ### Authorization
 
@@ -412,37 +473,32 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAllDocuments**
-> \RSearch\Client\RSearchModel\InlineResponse2002 getAllDocuments($indexName, $docTypeName)
+> \RSearch\Client\RSearchModel\GetDocumentsSuccess getAllDocuments($indexName$docTypeName)
 
 
 
-Fetches all documents in `doc_type_name` for `index_name`
+Fetches all documents in `doc_type_name` for `index_name`. All the documents and hence careful with its use.
 
 ### Example
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
-$docTypeName = "docTypeName_example"; // string | Name of the document_type
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$docTypeName = array("docTypeName_example"); // string | Name of the document_type
 
 try {
-    $result = $api_instance->getAllDocuments($indexName, $docTypeName);
+    $result = $apiInstance->getAllDocuments($indexName$docTypeName);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->getAllDocuments: ', $e->getMessage(), PHP_EOL;
@@ -454,12 +510,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **docTypeName** | **string**| Name of the document_type |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **docTypeName** | [**string**](../Model/.md)| Name of the document_type |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2002**](../Model/InlineResponse2002.md)
+[**\RSearch\Client\RSearchModel\GetDocumentsSuccess**](../Model/GetDocumentsSuccess.md)
 
 ### Authorization
 
@@ -468,35 +524,30 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAllIndexes**
-> \RSearch\Client\RSearchModel\InlineResponse200 getAllIndexes()
+> \RSearch\Client\RSearchModel\GetIndexesSuccess getAllIndexes()
 
 
 
-Fetches `All indexes`
+Fetches `All indexes` that the user has. Not recommended to be used in production code, as there isn't that big a Use case for listing all indexes!
 
 ### Example
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
 
 try {
-    $result = $api_instance->getAllIndexes();
+    $result = $apiInstance->getAllIndexes();
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->getAllIndexes: ', $e->getMessage(), PHP_EOL;
@@ -509,7 +560,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse200**](../Model/InlineResponse200.md)
+[**\RSearch\Client\RSearchModel\GetIndexesSuccess**](../Model/GetIndexesSuccess.md)
 
 ### Authorization
 
@@ -518,12 +569,12 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getBasicSearchResults**
-> \RSearch\Client\RSearchModel\InlineResponse2007 getBasicSearchResults($indexName, $q)
+> \RSearch\Client\RSearchModel\SearchSuccess getBasicSearchResults($indexName$q)
 
 
 
@@ -534,21 +585,16 @@ Basic Search which gets all documents in `index_name` for provided search criter
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
-$q = "q_example"; // string | Search Query
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$q = array("q_example"); // string | Search Query
 
 try {
-    $result = $api_instance->getBasicSearchResults($indexName, $q);
+    $result = $apiInstance->getBasicSearchResults($indexName$q);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->getBasicSearchResults: ', $e->getMessage(), PHP_EOL;
@@ -560,12 +606,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **q** | **string**| Search Query |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **q** | [**string**](../Model/.md)| Search Query |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2007**](../Model/InlineResponse2007.md)
+[**\RSearch\Client\RSearchModel\SearchSuccess**](../Model/SearchSuccess.md)
 
 ### Authorization
 
@@ -574,38 +620,86 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **getDocument**
-> \RSearch\Client\RSearchModel\InlineResponse2004 getDocument($indexName, $docTypeName, $docId)
+# **getDocTypeSuggestResults**
+> \RSearch\Client\RSearchModel\SuggestSuccess getDocTypeSuggestResults($indexName$docTypeName$q)
 
 
 
-Fetches details of `doc_id` in `doc_type_name` for `index_name`
+Gets Suggestions from `doc_type_name` in `index_name`. Please ensure you refer the getting started guides, to get the format of the query right.
 
 ### Example
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
-$docTypeName = "docTypeName_example"; // string | Name of the document_type
-$docId = "docId_example"; // string | Document ID
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$docTypeName = array("docTypeName_example"); // string | Name of the Document_type
+$q = array("q_example"); // string | Details of the suggest query
 
 try {
-    $result = $api_instance->getDocument($indexName, $docTypeName, $docId);
+    $result = $apiInstance->getDocTypeSuggestResults($indexName$docTypeName$q);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling RsearchApi->getDocTypeSuggestResults: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **docTypeName** | [**string**](../Model/.md)| Name of the Document_type |
+ **q** | [**string**](../Model/.md)| Details of the suggest query |
+
+### Return type
+
+[**\RSearch\Client\RSearchModel\SuggestSuccess**](../Model/SuggestSuccess.md)
+
+### Authorization
+
+[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getDocument**
+> \RSearch\Client\RSearchModel\GetDocumentSuccess getDocument($indexName$docTypeName$docId)
+
+
+
+Fetches the document referenced by `doc_id` in `doc_type_name` for `index_name`
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$docTypeName = array("docTypeName_example"); // string | Name of the document_type
+$docId = array("docId_example"); // string | Document ID
+
+try {
+    $result = $apiInstance->getDocument($indexName$docTypeName$docId);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->getDocument: ', $e->getMessage(), PHP_EOL;
@@ -617,13 +711,13 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **docTypeName** | **string**| Name of the document_type |
- **docId** | **string**| Document ID |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **docTypeName** | [**string**](../Model/.md)| Name of the document_type |
+ **docId** | [**string**](../Model/.md)| Document ID |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2004**](../Model/InlineResponse2004.md)
+[**\RSearch\Client\RSearchModel\GetDocumentSuccess**](../Model/GetDocumentSuccess.md)
 
 ### Authorization
 
@@ -632,12 +726,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDocumentType**
-> \RSearch\Client\RSearchModel\InlineResponse2003 getDocumentType($indexName, $docTypeName)
+> \RSearch\Client\RSearchModel\GetDocTypeSuccess getDocumentType($indexName$docTypeName)
 
 
 
@@ -648,21 +742,16 @@ Checks whether `document_type` in `index_name` exists
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
-$docTypeName = "docTypeName_example"; // string | Name of the document_type
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
+$docTypeName = array("docTypeName_example"); // string | Name of the document_type
 
 try {
-    $result = $api_instance->getDocumentType($indexName, $docTypeName);
+    $result = $apiInstance->getDocumentType($indexName$docTypeName);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->getDocumentType: ', $e->getMessage(), PHP_EOL;
@@ -674,12 +763,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **docTypeName** | **string**| Name of the document_type |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
+ **docTypeName** | [**string**](../Model/.md)| Name of the document_type |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2003**](../Model/InlineResponse2003.md)
+[**\RSearch\Client\RSearchModel\GetDocTypeSuccess**](../Model/GetDocTypeSuccess.md)
 
 ### Authorization
 
@@ -688,12 +777,12 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getIndex**
-> \RSearch\Client\RSearchModel\InlineResponse2001 getIndex($indexName)
+> \RSearch\Client\RSearchModel\GetIndexSuccess getIndex($indexName)
 
 
 
@@ -704,20 +793,15 @@ Checks whether `a particular index` {index_name} exists
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$indexName = array("indexName_example"); // string | Name of the index
 
 try {
-    $result = $api_instance->getIndex($indexName);
+    $result = $apiInstance->getIndex($indexName);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RsearchApi->getIndex: ', $e->getMessage(), PHP_EOL;
@@ -729,11 +813,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
+ **indexName** | [**string**](../Model/.md)| Name of the index |
 
 ### Return type
 
-[**\RSearch\Client\RSearchModel\InlineResponse2001**](../Model/InlineResponse2001.md)
+[**\RSearch\Client\RSearchModel\GetIndexSuccess**](../Model/GetIndexSuccess.md)
 
 ### Authorization
 
@@ -742,65 +826,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **getSuggestResults**
-> \RSearch\Client\RSearchModel\InlineResponse2008 getSuggestResults($indexName, $docTypeName, $q)
-
-
-
-Basic Search - Gets Suggestions from `doc_type_name` in `index_name`
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: authToken
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$api_instance = new RSearch\Client\Api\RsearchApi();
-$indexName = "indexName_example"; // string | Name of the index
-$docTypeName = "docTypeName_example"; // string | Name of the Document_type
-$q = "q_example"; // string | Details of the suggest query
-
-try {
-    $result = $api_instance->getSuggestResults($indexName, $docTypeName, $q);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling RsearchApi->getSuggestResults: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **docTypeName** | **string**| Name of the Document_type |
- **q** | **string**| Details of the suggest query |
-
-### Return type
-
-[**\RSearch\Client\RSearchModel\InlineResponse2008**](../Model/InlineResponse2008.md)
-
-### Authorization
-
-[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/jsonapplication/jsonapplication/jsonapplication/jsonapplication/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
