@@ -175,7 +175,6 @@ class DocumentTypeFields implements ModelInterface, ArrayAccess
     const TYPE_DATE = 'date';
     const TYPE_LOCATION = 'location';
     const TYPE_FIXED = 'fixed';
-    const SUGGEST_TRUE = 'true';
     
 
     
@@ -194,18 +193,6 @@ class DocumentTypeFields implements ModelInterface, ArrayAccess
             self::TYPE_DATE,
             self::TYPE_LOCATION,
             self::TYPE_FIXED,
-        ];
-    }
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getSuggestAllowableValues()
-    {
-        return [
-            self::SUGGEST_TRUE,
         ];
     }
     
@@ -247,14 +234,6 @@ class DocumentTypeFields implements ModelInterface, ArrayAccess
             );
         }
 
-        $allowedValues = $this->getSuggestAllowableValues();
-        if (!in_array($this->container['suggest'], $allowedValues)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'suggest', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
-
         return $invalidProperties;
     }
 
@@ -269,10 +248,6 @@ class DocumentTypeFields implements ModelInterface, ArrayAccess
 
         $allowedValues = $this->getTypeAllowableValues();
         if (!in_array($this->container['type'], $allowedValues)) {
-            return false;
-        }
-        $allowedValues = $this->getSuggestAllowableValues();
-        if (!in_array($this->container['suggest'], $allowedValues)) {
             return false;
         }
         return true;
@@ -355,15 +330,6 @@ class DocumentTypeFields implements ModelInterface, ArrayAccess
      */
     public function setSuggest($suggest)
     {
-        $allowedValues = $this->getSuggestAllowableValues();
-        if (!is_null($suggest) && !in_array($suggest, $allowedValues)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'suggest', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['suggest'] = $suggest;
 
         return $this;
