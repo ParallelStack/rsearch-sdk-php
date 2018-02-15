@@ -13,7 +13,6 @@ Method | HTTP request | Description
 [**getAdvancedIndexSuggestResults**](RsearchApi.md#getAdvancedIndexSuggestResults) | **POST** /indexes/{index_name}/suggest | 
 [**getAdvancedSearchResults**](RsearchApi.md#getAdvancedSearchResults) | **POST** /indexes/{index_name}/document_types/{doc_type_name}/search | 
 [**getAllDocumentTypes**](RsearchApi.md#getAllDocumentTypes) | **GET** /indexes/{index_name}/document_types | 
-[**getAllDocuments**](RsearchApi.md#getAllDocuments) | **GET** /indexes/{index_name}/document_types/{doc_type_name}/documents | 
 [**getAllIndexes**](RsearchApi.md#getAllIndexes) | **GET** /indexes | 
 [**getBasicSearchResults**](RsearchApi.md#getBasicSearchResults) | **GET** /indexes/{index_name}/search | 
 [**getDocTypeSuggestResults**](RsearchApi.md#getDocTypeSuggestResults) | **GET** /indexes/{index_name}/document_types/{doc_type_name}/suggest | 
@@ -103,7 +102,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
+// Configure API key authorization: writeAppID
 $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
@@ -141,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
+[authToken](../../README.md#authToken), [writeAppID](../../README.md#writeAppID)
 
 ### HTTP request headers
 
@@ -471,7 +470,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: writeAppID
+// Configure API key authorization: readAppID
 $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
@@ -509,7 +508,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[authToken](../../README.md#authToken), [writeAppID](../../README.md#writeAppID)
+[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
 
 ### HTTP request headers
 
@@ -565,67 +564,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\RSearch\Client\RSearchModel\GetDocTypesSuccess**](../Model/GetDocTypesSuccess.md)
-
-### Authorization
-
-[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **getAllDocuments**
-> \RSearch\Client\RSearchModel\GetDocumentsSuccess getAllDocuments($indexName, $docTypeName)
-
-
-
-Fetches all documents in `doc_type_name` for `index_name`. All the documents and hence careful with its use.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: authToken
-$config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
-// Configure API key authorization: readAppID
-$config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
-
-$apiInstance = new RSearch\Client\Api\RsearchApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$indexName = "indexName_example"; // string | Name of the index
-$docTypeName = "docTypeName_example"; // string | Name of the document_type
-
-try {
-    $result = $apiInstance->getAllDocuments($indexName, $docTypeName);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling RsearchApi->getAllDocuments: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **indexName** | **string**| Name of the index |
- **docTypeName** | **string**| Name of the document_type |
-
-### Return type
-
-[**\RSearch\Client\RSearchModel\GetDocumentsSuccess**](../Model/GetDocumentsSuccess.md)
 
 ### Authorization
 
