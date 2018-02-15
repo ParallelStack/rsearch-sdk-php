@@ -59,7 +59,7 @@ class SearchSuccessSearchResultsMetadata implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'numberSearchResults' => 'float',
         'query' => 'string',
-        'aggregations' => 'object'
+        'aggregated' => 'object'
     ];
 
     /**
@@ -70,7 +70,7 @@ class SearchSuccessSearchResultsMetadata implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'numberSearchResults' => null,
         'query' => null,
-        'aggregations' => null
+        'aggregated' => null
     ];
 
     /**
@@ -102,7 +102,7 @@ class SearchSuccessSearchResultsMetadata implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'numberSearchResults' => 'number_search_results',
         'query' => 'query',
-        'aggregations' => 'aggregations'
+        'aggregated' => 'aggregated'
     ];
 
     /**
@@ -113,7 +113,7 @@ class SearchSuccessSearchResultsMetadata implements ModelInterface, ArrayAccess
     protected static $setters = [
         'numberSearchResults' => 'setNumberSearchResults',
         'query' => 'setQuery',
-        'aggregations' => 'setAggregations'
+        'aggregated' => 'setAggregated'
     ];
 
     /**
@@ -124,7 +124,7 @@ class SearchSuccessSearchResultsMetadata implements ModelInterface, ArrayAccess
     protected static $getters = [
         'numberSearchResults' => 'getNumberSearchResults',
         'query' => 'getQuery',
-        'aggregations' => 'getAggregations'
+        'aggregated' => 'getAggregated'
     ];
 
     /**
@@ -189,7 +189,7 @@ class SearchSuccessSearchResultsMetadata implements ModelInterface, ArrayAccess
     {
         $this->container['numberSearchResults'] = isset($data['numberSearchResults']) ? $data['numberSearchResults'] : null;
         $this->container['query'] = isset($data['query']) ? $data['query'] : null;
-        $this->container['aggregations'] = isset($data['aggregations']) ? $data['aggregations'] : null;
+        $this->container['aggregated'] = isset($data['aggregated']) ? $data['aggregated'] : null;
     }
 
     /**
@@ -278,25 +278,25 @@ class SearchSuccessSearchResultsMetadata implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets aggregations
+     * Gets aggregated
      *
      * @return object
      */
-    public function getAggregations()
+    public function getAggregated()
     {
-        return $this->container['aggregations'];
+        return $this->container['aggregated'];
     }
 
     /**
-     * Sets aggregations
+     * Sets aggregated
      *
-     * @param object $aggregations aggregations
+     * @param object $aggregated aggregated
      *
      * @return $this
      */
-    public function setAggregations($aggregations)
+    public function setAggregated($aggregated)
     {
-        $this->container['aggregations'] = $aggregations;
+        $this->container['aggregated'] = $aggregated;
 
         return $this;
     }

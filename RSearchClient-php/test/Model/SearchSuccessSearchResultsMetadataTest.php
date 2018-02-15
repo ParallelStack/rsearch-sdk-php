@@ -92,9 +92,9 @@ class SearchSuccessSearchResultsMetadataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "aggregations"
+     * Test attribute "aggregated"
      */
-    public function testPropertyAggregations()
+    public function testPropertyAggregated()
     {
     }
 }
