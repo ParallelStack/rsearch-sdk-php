@@ -11,6 +11,8 @@ Method | HTTP request | Description
 [**deleteIndex**](RsearchApi.md#deleteIndex) | **DELETE** /indexes/{index_name} | 
 [**getAdvancedDocTypeSuggestResults**](RsearchApi.md#getAdvancedDocTypeSuggestResults) | **POST** /indexes/{index_name}/document_types/{doc_type_name}/suggest | 
 [**getAdvancedIndexSuggestResults**](RsearchApi.md#getAdvancedIndexSuggestResults) | **POST** /indexes/{index_name}/suggest | 
+[**getAdvancedMultiIndexSearchResults**](RsearchApi.md#getAdvancedMultiIndexSearchResults) | **POST** /indexes/search | 
+[**getAdvancedMultiIndexSuggestResults**](RsearchApi.md#getAdvancedMultiIndexSuggestResults) | **POST** /indexes/suggest | 
 [**getAdvancedSearchResults**](RsearchApi.md#getAdvancedSearchResults) | **POST** /indexes/{index_name}/document_types/{doc_type_name}/search | 
 [**getAllDocumentTypes**](RsearchApi.md#getAllDocumentTypes) | **GET** /indexes/{index_name}/document_types | 
 [**getAllIndexes**](RsearchApi.md#getAllIndexes) | **GET** /indexes | 
@@ -19,6 +21,7 @@ Method | HTTP request | Description
 [**getDocument**](RsearchApi.md#getDocument) | **GET** /indexes/{index_name}/document_types/{doc_type_name}/documents/{doc_id} | 
 [**getDocumentType**](RsearchApi.md#getDocumentType) | **GET** /indexes/{index_name}/document_types/{doc_type_name} | 
 [**getIndex**](RsearchApi.md#getIndex) | **GET** /indexes/{index_name} | 
+[**getSimilarDocsResults**](RsearchApi.md#getSimilarDocsResults) | **POST** /indexes/algorithms/similardocs | 
 
 
 # **addDocument**
@@ -335,7 +338,7 @@ Name | Type | Description  | Notes
 
 
 
-Gets Suggestions from `doc_type_name` in `index_name` limited by the body params. Please ensure you refer the getting started guides, to get the format of the query right.
+Gets Suggestions from `doc_type_name` in `index_name` based on body params. Please ensure you refer the getting started guides, to get the format of the query right.
 
 ### Example
 ```php
@@ -438,6 +441,124 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **indexName** | **string**| Name of the index |
  **search** | [**\RSearch\Client\RSearchModel\SuggestQuery**](../Model/SuggestQuery.md)| Details of the search query |
+
+### Return type
+
+[**\RSearch\Client\RSearchModel\SuggestSuccess**](../Model/SuggestSuccess.md)
+
+### Authorization
+
+[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getAdvancedMultiIndexSearchResults**
+> \RSearch\Client\RSearchModel\SearchSuccess getAdvancedMultiIndexSearchResults($search)
+
+
+
+Advanced Search across multiple indexes specified as a part of the search criteria. Please ensure you refer the getting started guides, to get the format of the query right.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: authToken
+$config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
+// Configure API key authorization: readAppID
+$config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
+
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$search = new \RSearch\Client\RSearchModel\IndexesSearchQuery(); // \RSearch\Client\RSearchModel\IndexesSearchQuery | Details of the search query
+
+try {
+    $result = $apiInstance->getAdvancedMultiIndexSearchResults($search);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling RsearchApi->getAdvancedMultiIndexSearchResults: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **search** | [**\RSearch\Client\RSearchModel\IndexesSearchQuery**](../Model/IndexesSearchQuery.md)| Details of the search query |
+
+### Return type
+
+[**\RSearch\Client\RSearchModel\SearchSuccess**](../Model/SearchSuccess.md)
+
+### Authorization
+
+[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getAdvancedMultiIndexSuggestResults**
+> \RSearch\Client\RSearchModel\SuggestSuccess getAdvancedMultiIndexSuggestResults($suggest)
+
+
+
+Gets Suggestions across multiple indexes. Please ensure you refer the getting started guides, to get the format of the query right.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: authToken
+$config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
+// Configure API key authorization: readAppID
+$config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
+
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$suggest = new \RSearch\Client\RSearchModel\IndexesSuggestQuery(); // \RSearch\Client\RSearchModel\IndexesSuggestQuery | Details of the suggest query
+
+try {
+    $result = $apiInstance->getAdvancedMultiIndexSuggestResults($suggest);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling RsearchApi->getAdvancedMultiIndexSuggestResults: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **suggest** | [**\RSearch\Client\RSearchModel\IndexesSuggestQuery**](../Model/IndexesSuggestQuery.md)| Details of the suggest query |
 
 ### Return type
 
@@ -926,6 +1047,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\RSearch\Client\RSearchModel\GetIndexSuccess**](../Model/GetIndexSuccess.md)
+
+### Authorization
+
+[authToken](../../README.md#authToken), [readAppID](../../README.md#readAppID)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getSimilarDocsResults**
+> \RSearch\Client\RSearchModel\AlgorithmSuccess getSimilarDocsResults($algorithm)
+
+
+
+Returns Similar Documents based on the provided document(s) details. Please ensure you refer the getting started guides, to get the format of the query right.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: authToken
+$config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('auth_token', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth_token', 'Bearer');
+// Configure API key authorization: readAppID
+$config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKey('X-RSearch-App-ID', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = RSearch\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-RSearch-App-ID', 'Bearer');
+
+$apiInstance = new RSearch\Client\Api\RsearchApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$algorithm = new \RSearch\Client\RSearchModel\AlgorithmSimilarDocsQuery(); // \RSearch\Client\RSearchModel\AlgorithmSimilarDocsQuery | Query defintions
+
+try {
+    $result = $apiInstance->getSimilarDocsResults($algorithm);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling RsearchApi->getSimilarDocsResults: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **algorithm** | [**\RSearch\Client\RSearchModel\AlgorithmSimilarDocsQuery**](../Model/AlgorithmSimilarDocsQuery.md)| Query defintions |
+
+### Return type
+
+[**\RSearch\Client\RSearchModel\AlgorithmSuccess**](../Model/AlgorithmSuccess.md)
 
 ### Authorization
 
